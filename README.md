@@ -1,14 +1,14 @@
-# MedGemma-Neuro MLOps System
+# MedGemma Clinical Update System
 
 **Production-Grade Medical AI System with RAG Architecture**
 
-End-to-end MLOps implementation of a specialized medical LLM deployed on GCP for clinical decision support in Neurology.
+End-to-end MLOps implementation of a medical LLM deployed on GCP for real-time clinical literature updates and evidence-based decision support across all medical specialties.
 
 ## 🎯 Project Overview
 
 Designed and deployed a production medical AI system combining LoRA fine-tuning with RAG to mitigate hallucinations and ensure reliable responses across medical domains.
 
-**Key Achievement:** Eliminated specialization bias while maintaining domain expertise through hybrid RAG architecture with <100ms latency.
+**Key Achievement:** Real-time medical literature retrieval with RAG, providing physicians with up-to-date evidence-based recommendations with <100ms latency.
 
 ## 🛠 Tech Stack
 
