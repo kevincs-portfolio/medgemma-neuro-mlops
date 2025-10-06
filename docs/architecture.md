@@ -2,47 +2,24 @@
 
 ## High-Level Design
 
-─────────────┐
-│   Client    │
-│  (Neurologist)│
-└──────┬──────┘
-│
-▼
-
-┌─────────────────────────────────────────┐
-│          Cloud Run (API Gateway)         │
-│  - Request validation                    │
-│  - Rate limiting                         │
-│  - Authentication                        │
-└──────┬──────────────────────┬───────────┘
-│                      │
-▼                      ▼
-
-┌──────────────────┐   ┌─────────────────────┐
-│ Matching Engine  │   │  Vertex AI Endpoint │
-│  (Vector Search) │   │  (MedGemma + LoRA)  │
-│                  │   │                     │
-│ - Medical KB     │   │ - Fine-tuned model  │
-│ - Embeddings     │   │ - Inference         │
-└──────┬───────────┘   └──────┬──────────────┘
-│                      │
-└──────────┬───────────┘
-│
-▼
-┌────────────────┐
-│   BigQuery     │
-│ - Query logs   │
-│ - Predictions  │
-│ - Metrics      │
-└────────┬───────┘
-│
-▼
-┌────────────────────┐
-│ Vertex AI Monitoring│
-│ - Model drift       │
-│ - Data drift        │
-│ - Alerts            │
-└─────────────────────┘
+graph TD
+    A[Client - Neurologist] --> B[Cloud Run API Gateway]
+    B --> C[Request Validation<br/>Rate Limiting<br/>Authentication]
+    C --> D[Vertex AI Matching Engine<br/>Vector Search]
+    C --> E[Vertex AI Endpoint<br/>MedGemma + LoRA]
+    D --> F[Medical Knowledge Base<br/>Embeddings]
+    E --> G[Fine-tuned Model<br/>Inference]
+    D --> H[Response Generator]
+    E --> H
+    H --> I[BigQuery<br/>Logs & Metrics]
+    I --> J[Vertex AI Monitoring<br/>Drift Detection & Alerts]
+    
+    style A fill:#e1f5ff
+    style B fill:#fff4e1
+    style D fill:#f0e1ff
+    style E fill:#f0e1ff
+    style I fill:#e1ffe1
+    style J fill:#ffe1e1
 
 ## Component Details
 
