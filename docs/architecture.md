@@ -2,24 +2,28 @@
 
 ## High-Level Design
 
-graph TD
-    A[Client - Neurologist] --> B[Cloud Run API Gateway]
-    B --> C[Request Validation<br/>Rate Limiting<br/>Authentication]
-    C --> D[Vertex AI Matching Engine<br/>Vector Search]
-    C --> E[Vertex AI Endpoint<br/>MedGemma + LoRA]
-    D --> F[Medical Knowledge Base<br/>Embeddings]
-    E --> G[Fine-tuned Model<br/>Inference]
-    D --> H[Response Generator]
-    E --> H
-    H --> I[BigQuery<br/>Logs & Metrics]
-    I --> J[Vertex AI Monitoring<br/>Drift Detection & Alerts]
-    
-    style A fill:#e1f5ff
-    style B fill:#fff4e1
-    style D fill:#f0e1ff
-    style E fill:#f0e1ff
-    style I fill:#e1ffe1
-    style J fill:#ffe1e1
+## System Flow
+
+**Request Path:**
+1. **Client (Neurologist)** → Sends clinical query
+2. **Cloud Run (API Gateway)** → Validates request, authenticates, rate limits
+3. **Parallel Processing:**
+   - **Vertex AI Matching Engine** → Retrieves top-5 relevant medical documents (RAG)
+   - **Vertex AI Endpoint** → Loads fine-tuned MedGemma model
+4. **Response Generation** → Combines RAG context + model inference
+5. **BigQuery** → Logs query, prediction, latency
+6. **Vertex AI Monitoring** → Analyzes logs for drift, triggers alerts
+
+**Data Flow:**
+
+Query → API Gateway → [RAG Retrieval || Model Inference] → Combined Response → Logging → Monitoring
+
+**Key Integration Points:**
+- Cloud Run orchestrates both RAG and model calls in parallel
+- BigQuery acts as centralized data lake for all predictions
+- Vertex AI Monitoring consumes BigQuery logs for drift detection
+
+
 
 ## Component Details
 
