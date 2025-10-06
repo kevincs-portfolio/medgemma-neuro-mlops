@@ -8,6 +8,7 @@
 └──────┬──────┘
 │
 ▼
+
 ┌─────────────────────────────────────────┐
 │          Cloud Run (API Gateway)         │
 │  - Request validation                    │
@@ -16,6 +17,7 @@
 └──────┬──────────────────────┬───────────┘
 │                      │
 ▼                      ▼
+
 ┌──────────────────┐   ┌─────────────────────┐
 │ Matching Engine  │   │  Vertex AI Endpoint │
 │  (Vector Search) │   │  (MedGemma + LoRA)  │
